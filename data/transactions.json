@@ -1,0 +1,50 @@
+{
+  "ac6311e2-6a40-4580-a2e9-83a0710ad8d3": {
+    "id": "5c88cb2e-eef6-496d-b450-bfa16a11a79c",
+    "items": [
+      {
+        "id": "0dd105f8-23e4-410a-8130-57be820424dd",
+        "name": "Soda",
+        "price": 4.0,
+        "quantity": 4
+      },
+      {
+        "id": "3c53d41e-0a14-4e54-8b42-8812ad062ca2",
+        "name": "DR. Pepper",
+        "price": 3.0,
+        "quantity": 2
+      }
+    ],
+    "total": 22.0,
+    "payment_method": "Zelle",
+    "customer_notes": "",
+    "timestamp": "2025-08-29T04:15:40.712193",
+    "date": "2025-08-29",
+    "time": "04:15:40",
+    "type": "sale"
+  },
+  "bf856dc2-59db-4773-9e79-7b2c90f17938": {
+    "id": "3bb2c9c1-7adc-4552-a5a6-bb24589790fd",
+    "items": [
+      {
+        "id": "0dd105f8-23e4-410a-8130-57be820424dd",
+        "name": "Soda",
+        "price": 4.0,
+        "quantity": 2
+      },
+      {
+        "id": "3c53d41e-0a14-4e54-8b42-8812ad062ca2",
+        "name": "DR. Pepper",
+        "price": 3.0,
+        "quantity": 26
+      }
+    ],
+    "total": 86.0,
+    "payment_method": "Cash",
+    "customer_notes": "",
+    "timestamp": "2025-08-29T04:16:38.313360",
+    "date": "2025-08-29",
+    "time": "04:16:38",
+    "type": "sale"
+  }
+}

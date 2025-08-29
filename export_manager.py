@@ -44,18 +44,18 @@ def export_data_page():
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        if st.button("Today's Data", use_container_width=True):
+        if st.button("Today's Data", width="stretch"):
             today = datetime.now().date()
             generate_export(today, today, True, True, False)
     
     with col2:
-        if st.button("This Week", use_container_width=True):
+        if st.button("This Week", width="stretch"):
             today = datetime.now().date()
             week_start = today - timedelta(days=today.weekday())
             generate_export(week_start, today, True, True, False)
     
     with col3:
-        if st.button("Full Inventory Report", use_container_width=True):
+        if st.button("Full Inventory Report", width="stretch"):
             today = datetime.now().date()
             generate_export(today, today, False, False, True)
 

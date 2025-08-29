@@ -23,19 +23,19 @@ def turned_away_tracker_page():
         # Quick buttons for common reasons
         st.subheader("Quick Entry")
         
-        if st.button("💰 Too Expensive", use_container_width=True):
+        if st.button("💰 Too Expensive", width="stretch"):
             add_turned_away_entry("Too expensive")
         
-        if st.button("🔍 Just Looking", use_container_width=True):
+        if st.button("🔍 Just Looking", width="stretch"):
             add_turned_away_entry("Just looking/browsing")
         
-        if st.button("📦 Out of Stock", use_container_width=True):
+        if st.button("📦 Out of Stock", width="stretch"):
             add_turned_away_entry("Desired item out of stock")
         
-        if st.button("⏰ No Time", use_container_width=True):
+        if st.button("⏰ No Time", width="stretch"):
             add_turned_away_entry("No time to purchase")
         
-        if st.button("❓ Generic", use_container_width=True):
+        if st.button("❓ Generic", width="stretch"):
             add_turned_away_entry("Generic - no specific reason")
     
     with col2:

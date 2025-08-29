@@ -100,9 +100,18 @@ def edit_items():
             
             with col1:
                 new_name = st.text_input("Item Name", value=item_data['name'])
+                # Handle old categories that might not exist in new list
+                current_category = item_data.get('category', 'Other')
+                categories = ["Drink", "Snack", "Other"]
+                try:
+                    category_index = categories.index(current_category)
+                except ValueError:
+                    # If old category doesn't exist, default to "Other"
+                    category_index = categories.index('Other')
+                
                 new_category = st.selectbox("Category", 
-                    ["Drink", "Snack", "Other"],
-                    index=["Drink", "Snack", "Other"].index(item_data.get('category', 'Other')))
+                    categories,
+                    index=category_index)
                 new_price = st.number_input("Price ($)", value=float(item_data['price']), min_value=0.0, step=0.01, format="%.2f")
             
             with col2:

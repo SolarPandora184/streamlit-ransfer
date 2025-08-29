@@ -83,7 +83,7 @@ def main_sales_panel():
                         button_text = f"{item_data['name']}\n${item_data['price']:.2f}"
                         stock_info = f"Stock: {item_data.get('stock', 0)}"
                         
-                        if st.button(button_text, key=f"item_{item_id}", help=stock_info, use_container_width=True):
+                        if st.button(button_text, key=f"item_{item_id}", help=stock_info, width="stretch"):
                             add_item_to_cart(item_id, item_data, 1)
                         
                         # Show stock status
@@ -160,10 +160,10 @@ def display_cart_and_controls():
             
             customer_notes = st.text_input("Customer Notes (Optional)")
             
-            if st.button("🔔 Complete Sale", type="primary", use_container_width=True):
+            if st.button("🔔 Complete Sale", type="primary", width="stretch"):
                 complete_transaction(payment_method, customer_notes, total)
             
-            if st.button("🗑️ Clear Cart", use_container_width=True):
+            if st.button("🗑️ Clear Cart", width="stretch"):
                 st.session_state.cart = []
                 st.rerun()
     
@@ -175,15 +175,15 @@ def display_cart_and_controls():
     
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("💰 Too Expensive", use_container_width=True):
+        if st.button("💰 Too Expensive", width="stretch"):
             add_turned_away_entry("Too expensive")
-        if st.button("🔍 Just Looking", use_container_width=True):
+        if st.button("🔍 Just Looking", width="stretch"):
             add_turned_away_entry("Just looking/browsing")
     
     with col2:
-        if st.button("📦 Out of Stock", use_container_width=True):
+        if st.button("📦 Out of Stock", width="stretch"):
             add_turned_away_entry("Desired item out of stock")
-        if st.button("❓ Generic", use_container_width=True):
+        if st.button("❓ Generic", width="stretch"):
             add_turned_away_entry("Generic - no specific reason")
     
     # Custom reason
@@ -198,12 +198,12 @@ def display_cart_and_controls():
     col1, col2 = st.columns(2)
     
     with col1:
-        if st.button("📥 Today's Data", use_container_width=True):
+        if st.button("📥 Today's Data", width="stretch"):
             today = datetime.now().date()
             generate_export(today, today, True, True, False)
     
     with col2:
-        if st.button("📋 Full Report", use_container_width=True):
+        if st.button("📋 Full Report", width="stretch"):
             today = datetime.now().date()
             week_start = today - timedelta(days=today.weekday())
             generate_export(week_start, today, True, True, True)

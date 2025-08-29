@@ -1,0 +1,18 @@
+{
+  "75deefde-9032-4f4e-99b8-d2e7e317be28": {
+    "id": "108d7994-7392-430d-82d2-a671874868bf",
+    "reason": "Generic - no specific reason",
+    "timestamp": "2025-08-29T04:16:08.021160",
+    "date": "2025-08-29",
+    "time": "04:16:08",
+    "type": "turned_away"
+  },
+  "d0524ef3-4ace-414f-92ee-274798859a34": {
+    "id": "d96de6f8-ac1a-45fc-9baa-4a71d596bce6",
+    "reason": "Just looking/browsing",
+    "timestamp": "2025-08-29T04:16:14.508494",
+    "date": "2025-08-29",
+    "time": "04:16:14",
+    "type": "turned_away"
+  }
+}
