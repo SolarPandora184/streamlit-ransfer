@@ -164,10 +164,24 @@ def display_cart_and_controls():
                 ["Cash", "Zelle"]
             )
             
+            # Show confirmation number field for Zelle payments
+            confirmation_number = ""
+            if payment_method == "Zelle":
+                confirmation_number = st.text_input(
+                    "Zelle Confirmation Number*",
+                    placeholder="Enter Zelle confirmation number"
+                )
+            
             customer_notes = st.text_input("Customer Notes (Optional)")
             
-            if st.button("🔔 Complete Sale", type="primary", width="stretch"):
-                complete_transaction(payment_method, customer_notes, total)
+            # Check if confirmation number is required for Zelle
+            can_complete_sale = True
+            if payment_method == "Zelle" and not confirmation_number.strip():
+                can_complete_sale = False
+                st.warning("⚠️ Confirmation number required for Zelle payments")
+            
+            if st.button("🔔 Complete Sale", type="primary", width="stretch", disabled=not can_complete_sale):
+                complete_transaction(payment_method, customer_notes, total, confirmation_number)
             
             if st.button("🗑️ Clear Cart", width="stretch"):
                 st.session_state.cart = []
@@ -219,7 +233,7 @@ def display_cart_and_controls():
             week_start = today - timedelta(days=today.weekday())
             generate_export(week_start, today, True, True, True)
 
-def complete_transaction(payment_method, customer_notes, total):
+def complete_transaction(payment_method, customer_notes, total, confirmation_number=""):
     """Complete the transaction and save to Firebase"""
     transaction_id = str(uuid.uuid4())
     transaction_data = {
@@ -228,6 +242,7 @@ def complete_transaction(payment_method, customer_notes, total):
         'total': total,
         'payment_method': payment_method,
         'customer_notes': customer_notes,
+        'confirmation_number': confirmation_number,
         'timestamp': datetime.now().isoformat(),
         'date': datetime.now().strftime('%Y-%m-%d'),
         'time': datetime.now().strftime('%H:%M:%S'),

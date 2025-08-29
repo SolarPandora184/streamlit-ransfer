@@ -140,12 +140,18 @@ def get_transactions_dataframe(start_date, end_date):
             items_str = "; ".join([f"{item['name']} x{item['quantity']} @ ${item['price']:.2f}" 
                                  for item in transaction.get('items', [])])
             
+            # Include confirmation number for Zelle payments
+            payment_info = transaction.get('payment_method', '')
+            if transaction.get('payment_method') == 'Zelle' and transaction.get('confirmation_number'):
+                payment_info += f" (Conf: {transaction.get('confirmation_number')})"
+            
             transactions_list.append({
                 'Transaction ID': transaction.get('id', transaction_id),
                 'Date': transaction.get('date', ''),
                 'Time': transaction.get('time', ''),
                 'Total': f"${transaction.get('total', 0):.2f}",
-                'Payment Method': transaction.get('payment_method', ''),
+                'Payment Method': payment_info,
+                'Confirmation Number': transaction.get('confirmation_number', ''),
                 'Customer Notes': transaction.get('customer_notes', ''),
                 'Items': items_str,
                 'Item Count': len(transaction.get('items', [])),

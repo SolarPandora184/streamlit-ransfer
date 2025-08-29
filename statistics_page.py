@@ -279,6 +279,10 @@ def display_transaction_details(transactions):
         item_count = len(trans.get('items', []))
         total_quantity = sum(item.get('quantity', 0) for item in trans.get('items', []))
         
+        confirmation_info = ""
+        if trans.get('payment_method') == 'Zelle' and trans.get('confirmation_number'):
+            confirmation_info = f" (Conf: {trans.get('confirmation_number')})"
+        
         transaction_list.append({
             'Transaction ID': trans.get('id', trans_id)[:8] + "...",
             'Date': trans.get('date', ''),
@@ -287,7 +291,7 @@ def display_transaction_details(transactions):
             'Item Count': item_count,
             'Total Quantity': total_quantity,
             'Total Amount': f"${trans.get('total', 0):.2f}",
-            'Payment Method': trans.get('payment_method', ''),
+            'Payment Method': trans.get('payment_method', '') + confirmation_info,
             'Customer Notes': trans.get('customer_notes', '')
         })
     
