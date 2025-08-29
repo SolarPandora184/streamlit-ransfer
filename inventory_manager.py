@@ -29,7 +29,7 @@ def add_new_item():
         with col1:
             item_name = st.text_input("Item Name*", placeholder="e.g., T-Shirt, Poster, Model Plane")
             item_category = st.selectbox("Category", 
-                ["Apparel", "Merchandise", "Models", "Accessories", "Books", "Other"])
+                ["Drink", "Snack", "Other"])
             item_price = st.number_input("Price ($)*", min_value=0.0, step=0.01, format="%.2f")
         
         with col2:
@@ -101,8 +101,8 @@ def edit_items():
             with col1:
                 new_name = st.text_input("Item Name", value=item_data['name'])
                 new_category = st.selectbox("Category", 
-                    ["Apparel", "Merchandise", "Models", "Accessories", "Books", "Other"],
-                    index=["Apparel", "Merchandise", "Models", "Accessories", "Books", "Other"].index(item_data.get('category', 'Other')))
+                    ["Drink", "Snack", "Other"],
+                    index=["Drink", "Snack", "Other"].index(item_data.get('category', 'Other')))
                 new_price = st.number_input("Price ($)", value=float(item_data['price']), min_value=0.0, step=0.01, format="%.2f")
             
             with col2:
@@ -163,7 +163,7 @@ def view_inventory():
         show_inactive = st.checkbox("Show inactive items")
     with col2:
         category_filter = st.selectbox("Filter by category", 
-                                     ["All"] + ["Apparel", "Merchandise", "Models", "Accessories", "Books", "Other"])
+                                     ["All"] + ["Drink", "Snack", "Other"])
     
     # Display items in a table format
     items_data = []

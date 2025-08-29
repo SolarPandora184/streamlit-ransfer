@@ -149,7 +149,7 @@ def checkout_section():
         with col1:
             payment_method = st.selectbox(
                 "Payment Method*",
-                ["Cash", "Credit Card", "Debit Card", "Mobile Payment", "Check", "Other"]
+                ["Cash", "Zelle"]
             )
             
         with col2:

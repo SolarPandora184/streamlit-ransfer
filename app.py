@@ -155,7 +155,7 @@ def display_cart_and_controls():
             st.subheader("💰 Payment")
             payment_method = st.selectbox(
                 "Payment Method",
-                ["Cash", "Credit Card", "Debit Card", "Mobile Payment", "Check", "Other"]
+                ["Cash", "Zelle"]
             )
             
             customer_notes = st.text_input("Customer Notes (Optional)")
