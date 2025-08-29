@@ -7,33 +7,6 @@ def inventory_management_page():
     """Inventory management interface"""
     st.header("📦 Inventory Management")
     
-    # Password protection for admin access
-    if 'admin_authenticated' not in st.session_state:
-        st.session_state.admin_authenticated = False
-    
-    if not st.session_state.admin_authenticated:
-        st.warning("🔐 Admin authentication required")
-        password = st.text_input("Enter admin password:", type="password")
-        admin_password = st.text_input("Confirm admin access:", type="password")
-        
-        if st.button("Authenticate"):
-            # Simple password check - in production, use proper authentication
-            expected_password = "admin123"  # This should be in environment variables
-            if password == expected_password and admin_password == expected_password:
-                st.session_state.admin_authenticated = True
-                st.success("Authentication successful!")
-                st.rerun()
-            else:
-                st.error("Invalid credentials")
-        return
-    
-    # Logout button
-    if st.button("🚪 Logout from Admin"):
-        st.session_state.admin_authenticated = False
-        st.rerun()
-    
-    st.divider()
-    
     # Tabs for different inventory operations
     tab1, tab2, tab3 = st.tabs(["Add New Item", "Edit Items", "View Inventory"])
     
