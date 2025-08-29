@@ -18,7 +18,7 @@ def main():
     try:
         subprocess.run([
             sys.executable, "-m", "streamlit", "run", "app.py",
-            "--server.port", "8501",
+            "--server.port", "5000",
             "--server.address", "0.0.0.0"
         ], check=True)
     except KeyboardInterrupt:
