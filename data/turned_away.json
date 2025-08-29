@@ -14,5 +14,45 @@
     "date": "2025-08-29",
     "time": "04:16:14",
     "type": "turned_away"
+  },
+  "7cb35caa-f038-4bd3-91e2-82ec048eecff": {
+    "id": "612a20e9-092f-4c4c-ab09-53ad21219fea",
+    "reason": "Left due to wrong payment type",
+    "timestamp": "2025-08-29T04:27:32.105248",
+    "date": "2025-08-29",
+    "time": "04:27:32",
+    "type": "turned_away"
+  },
+  "e51d78e3-4153-401c-a14e-1bfffabdec92": {
+    "id": "49a65b50-92de-412f-a6b1-9fa4527abd08",
+    "reason": "Desired item out of stock",
+    "timestamp": "2025-08-29T04:27:33.001216",
+    "date": "2025-08-29",
+    "time": "04:27:33",
+    "type": "turned_away"
+  },
+  "038364ef-ab50-4737-9e1d-52b2a109c282": {
+    "id": "5bc76c1c-a9f4-467c-9d89-5395898e107c",
+    "reason": "Just looking/browsing",
+    "timestamp": "2025-08-29T04:27:33.900832",
+    "date": "2025-08-29",
+    "time": "04:27:33",
+    "type": "turned_away"
+  },
+  "4e0bc483-c533-44f0-bf41-ffea35f7c258": {
+    "id": "45f8b1b9-2f45-4df1-98e9-7f9cccb0e5da",
+    "reason": "Generic - no specific reason",
+    "timestamp": "2025-08-29T04:27:34.639429",
+    "date": "2025-08-29",
+    "time": "04:27:34",
+    "type": "turned_away"
+  },
+  "ec524c90-11b4-48e8-829e-d8dec6d3c8c3": {
+    "id": "877598ab-c779-4c58-9bd5-be69c2173e41",
+    "reason": "was treated badly",
+    "timestamp": "2025-08-29T04:27:53.081577",
+    "date": "2025-08-29",
+    "time": "04:27:53",
+    "type": "turned_away"
   }
 }

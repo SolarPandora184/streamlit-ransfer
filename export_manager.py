@@ -106,6 +106,9 @@ def generate_export(start_date, end_date, include_transactions, include_turned_a
             
             # Generate summary sheet
             generate_summary_sheet(writer, start_date, end_date)
+            
+            # Generate turned away statistics sheet
+            generate_turned_away_stats_sheet(writer, start_date, end_date)
         
         # Prepare download
         output.seek(0)
@@ -269,3 +272,118 @@ def generate_summary_sheet(writer, start_date, end_date):
     # Create DataFrame and export
     summary_df = pd.DataFrame(summary_data, columns=['Metric', 'Value'])
     summary_df.to_excel(writer, sheet_name='Summary', index=False)
+
+def generate_turned_away_stats_sheet(writer, start_date, end_date):
+    """Generate detailed turned away statistics sheet"""
+    
+    # Get turned away data
+    turned_away_data = read_data('turned_away')
+    
+    if not turned_away_data:
+        # Create empty sheet with message
+        empty_stats = pd.DataFrame([['No turned away data available', '']], 
+                                 columns=['Statistic', 'Value'])
+        empty_stats.to_excel(writer, sheet_name='Turned Away Stats', index=False)
+        return
+    
+    # Filter by date range
+    date_filtered_turned_away = []
+    for entry in turned_away_data.values():
+        try:
+            entry_date = datetime.strptime(entry.get('date', ''), '%Y-%m-%d').date()
+            if start_date <= entry_date <= end_date:
+                date_filtered_turned_away.append(entry)
+        except:
+            continue
+    
+    if not date_filtered_turned_away:
+        # Create empty sheet with message
+        empty_stats = pd.DataFrame([['No turned away data for selected date range', '']], 
+                                 columns=['Statistic', 'Value'])
+        empty_stats.to_excel(writer, sheet_name='Turned Away Stats', index=False)
+        return
+    
+    # Calculate statistics
+    stats_data = []
+    
+    # Basic counts
+    stats_data.append(['Report Period', f"{start_date} to {end_date}"])
+    stats_data.append(['Total Turned Away', len(date_filtered_turned_away)])
+    stats_data.append(['', ''])
+    
+    # Reason breakdown
+    reasons = [entry.get('reason', 'Unknown') for entry in date_filtered_turned_away]
+    reason_counts = {}
+    for reason in reasons:
+        reason_counts[reason] = reason_counts.get(reason, 0) + 1
+    
+    stats_data.append(['REASON BREAKDOWN', ''])
+    
+    # Specific important reasons
+    wrong_payment = sum(1 for reason in reasons if 'wrong payment' in reason.lower())
+    too_expensive = sum(1 for reason in reasons if 'too expensive' in reason.lower())
+    just_looking = sum(1 for reason in reasons if 'just looking' in reason.lower() or 'browsing' in reason.lower())
+    out_of_stock = sum(1 for reason in reasons if 'out of stock' in reason.lower())
+    generic = sum(1 for reason in reasons if 'generic' in reason.lower())
+    
+    stats_data.append(['Wrong Payment Type', wrong_payment])
+    stats_data.append(['Too Expensive', too_expensive])
+    stats_data.append(['Just Looking/Browsing', just_looking])
+    stats_data.append(['Out of Stock', out_of_stock])
+    stats_data.append(['Generic Reason', generic])
+    stats_data.append(['', ''])
+    
+    # All reasons with counts
+    stats_data.append(['ALL REASONS (Detailed)', ''])
+    for reason, count in sorted(reason_counts.items(), key=lambda x: x[1], reverse=True):
+        percentage = (count / len(date_filtered_turned_away)) * 100
+        stats_data.append([reason, f"{count} ({percentage:.1f}%)"])
+    
+    stats_data.append(['', ''])
+    
+    # Daily breakdown
+    daily_counts = {}
+    for entry in date_filtered_turned_away:
+        date = entry.get('date', '')
+        if date:
+            daily_counts[date] = daily_counts.get(date, 0) + 1
+    
+    if daily_counts:
+        stats_data.append(['DAILY BREAKDOWN', ''])
+        for date in sorted(daily_counts.keys()):
+            stats_data.append([date, daily_counts[date]])
+        
+        stats_data.append(['', ''])
+        stats_data.append(['Average per Day', f"{len(date_filtered_turned_away) / len(daily_counts):.1f}"])
+        stats_data.append(['Highest Day', f"{max(daily_counts.values())} turned away"])
+        stats_data.append(['Lowest Day', f"{min(daily_counts.values())} turned away"])
+    
+    # Time analysis (if we have time data)
+    times_with_data = [entry for entry in date_filtered_turned_away if entry.get('time')]
+    if times_with_data:
+        stats_data.append(['', ''])
+        stats_data.append(['TIME ANALYSIS', ''])
+        
+        # Group by hour
+        hour_counts = {}
+        for entry in times_with_data:
+            try:
+                time_str = entry.get('time', '')
+                hour = int(time_str.split(':')[0])
+                hour_counts[hour] = hour_counts.get(hour, 0) + 1
+            except:
+                continue
+        
+        if hour_counts:
+            peak_hour = max(hour_counts.items(), key=lambda x: x[1])
+            stats_data.append(['Peak Hour', f"{peak_hour[0]}:00 ({peak_hour[1]} turned away)"])
+            
+            # Show hourly breakdown
+            stats_data.append(['', ''])
+            stats_data.append(['HOURLY BREAKDOWN', ''])
+            for hour in sorted(hour_counts.keys()):
+                stats_data.append([f"{hour:02d}:00", hour_counts[hour]])
+    
+    # Create DataFrame and export
+    stats_df = pd.DataFrame(stats_data, columns=['Statistic', 'Value'])
+    stats_df.to_excel(writer, sheet_name='Turned Away Stats', index=False)

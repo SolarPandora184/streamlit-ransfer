@@ -70,5 +70,93 @@
     "date": "2025-08-29",
     "time": "04:22:09",
     "type": "sale"
+  },
+  "ebc63083-b8d5-4337-9a2e-db2db3526ea7": {
+    "id": "c86ceca8-ee09-4d9a-9e5e-88916fc2b6b3",
+    "items": [
+      {
+        "id": "2e20ed67-7ce4-4b40-867e-133e0dd8d22e",
+        "name": "Soda",
+        "price": 4.0699999999999985,
+        "quantity": 2
+      },
+      {
+        "id": "6dc536a2-5ff2-4eb2-a8a3-17d98a9c27c7",
+        "name": "soda3",
+        "price": 4.02,
+        "quantity": 2
+      }
+    ],
+    "total": 16.179999999999996,
+    "payment_method": "Zelle",
+    "customer_notes": "Need something warm",
+    "confirmation_number": "6461614981",
+    "timestamp": "2025-08-29T04:27:28.414259",
+    "date": "2025-08-29",
+    "time": "04:27:28",
+    "type": "sale"
+  },
+  "56b78c7e-bcfe-4604-9753-eb0a6ddc0c21": {
+    "id": "6747b754-074b-46c3-acb9-ea680a87add8",
+    "items": [
+      {
+        "id": "2e20ed67-7ce4-4b40-867e-133e0dd8d22e",
+        "name": "Soda",
+        "price": 4.0699999999999985,
+        "quantity": 2
+      },
+      {
+        "id": "6dc536a2-5ff2-4eb2-a8a3-17d98a9c27c7",
+        "name": "soda3",
+        "price": 4.02,
+        "quantity": 1
+      }
+    ],
+    "total": 12.159999999999997,
+    "payment_method": "Cash",
+    "customer_notes": "",
+    "confirmation_number": "",
+    "timestamp": "2025-08-29T04:27:58.709320",
+    "date": "2025-08-29",
+    "time": "04:27:58",
+    "type": "sale"
+  },
+  "3a754483-2a32-4585-bcb4-b233bee9eb08": {
+    "id": "33bad0e6-dcee-47e3-ae34-16db653223b4",
+    "items": [
+      {
+        "id": "2e20ed67-7ce4-4b40-867e-133e0dd8d22e",
+        "name": "Soda",
+        "price": 4.0699999999999985,
+        "quantity": 2
+      }
+    ],
+    "total": 8.139999999999997,
+    "payment_method": "Cash",
+    "customer_notes": "",
+    "confirmation_number": "",
+    "timestamp": "2025-08-29T04:28:01.099168",
+    "date": "2025-08-29",
+    "time": "04:28:01",
+    "type": "sale"
+  },
+  "6d314f11-913f-4506-9c1e-b9c275b5de54": {
+    "id": "e438ff97-3ee6-4b35-8ead-00fc0d3358bc",
+    "items": [
+      {
+        "id": "6dc536a2-5ff2-4eb2-a8a3-17d98a9c27c7",
+        "name": "soda3",
+        "price": 4.02,
+        "quantity": 1
+      }
+    ],
+    "total": 4.02,
+    "payment_method": "Cash",
+    "customer_notes": "",
+    "confirmation_number": "",
+    "timestamp": "2025-08-29T04:28:03.104384",
+    "date": "2025-08-29",
+    "time": "04:28:03",
+    "type": "sale"
   }
 }

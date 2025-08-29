@@ -22,5 +22,29 @@
     "created_at": "2025-08-29T04:14:51.969383",
     "updated_at": "2025-08-29T04:25:18.251075",
     "active": false
+  },
+  "2e20ed67-7ce4-4b40-867e-133e0dd8d22e": {
+    "id": "2e20ed67-7ce4-4b40-867e-133e0dd8d22e",
+    "name": "Soda",
+    "category": "Drink",
+    "price": 4.0699999999999985,
+    "description": "",
+    "stock": 19,
+    "sku": "",
+    "created_at": "2025-08-29T04:26:17.345427",
+    "updated_at": "2025-08-29T04:28:01.101386",
+    "active": true
+  },
+  "6dc536a2-5ff2-4eb2-a8a3-17d98a9c27c7": {
+    "id": "6dc536a2-5ff2-4eb2-a8a3-17d98a9c27c7",
+    "name": "soda3",
+    "category": "Drink",
+    "price": 4.02,
+    "description": "",
+    "stock": 25,
+    "sku": "",
+    "created_at": "2025-08-29T04:26:40.022020",
+    "updated_at": "2025-08-29T04:28:03.106205",
+    "active": true
   }
 }
