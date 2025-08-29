@@ -5,6 +5,7 @@ from inventory_manager import inventory_management_page
 from sales_interface import sales_interface_page
 from turned_away_tracker import turned_away_tracker_page, add_turned_away_entry
 from export_manager import export_data_page, generate_export
+from statistics_page import statistics_page
 from datetime import datetime, timedelta
 import uuid
 
@@ -29,7 +30,7 @@ def main():
     st.sidebar.title("Navigation")
     page = st.sidebar.selectbox(
         "Select Page",
-        ["Main Sales Panel", "Inventory Management"]
+        ["Main Sales Panel", "Inventory Management", "Statistics & Analytics"]
     )
     
     # Display current date and time
@@ -41,6 +42,8 @@ def main():
         main_sales_panel()
     elif page == "Inventory Management":
         inventory_management_page()
+    elif page == "Statistics & Analytics":
+        statistics_page()
 
 def main_sales_panel():
     """Main sales panel with everything in one view"""
@@ -69,15 +72,21 @@ def main_sales_panel():
         # Item buttons section
         st.subheader("🛍️ Select Items")
         
-        # Create item buttons in a grid
-        items_list = list(active_items.items())
+        # Create item buttons in a grid - only show items with stock > 0
+        items_with_stock = [(item_id, item_data) for item_id, item_data in active_items.items() 
+                           if item_data.get('stock', 0) > 0]
+        
+        if not items_with_stock:
+            st.warning("⚠️ All items are out of stock. Please restock inventory.")
+            return
+        
         cols_per_row = 3
         
-        for i in range(0, len(items_list), cols_per_row):
+        for i in range(0, len(items_with_stock), cols_per_row):
             cols = st.columns(cols_per_row)
             for j, col in enumerate(cols):
-                if i + j < len(items_list):
-                    item_id, item_data = items_list[i + j]
+                if i + j < len(items_with_stock):
+                    item_id, item_data = items_with_stock[i + j]
                     with col:
                         # Item button
                         button_text = f"{item_data['name']}\n${item_data['price']:.2f}"
@@ -89,10 +98,7 @@ def main_sales_panel():
                         # Show stock status
                         stock = item_data.get('stock', 0)
                         if stock <= 5:
-                            if stock == 0:
-                                st.error("Out of stock")
-                            else:
-                                st.warning(f"Low stock: {stock}")
+                            st.warning(f"Low stock: {stock}")
                         else:
                             st.success(f"Stock: {stock}")
     
@@ -183,6 +189,11 @@ def display_cart_and_controls():
     with col2:
         if st.button("📦 Out of Stock", width="stretch"):
             add_turned_away_entry("Desired item out of stock")
+        if st.button("💳 Wrong Payment", width="stretch"):
+            add_turned_away_entry("Left due to wrong payment type")
+    
+    col3, col4 = st.columns(2)
+    with col3:
         if st.button("❓ Generic", width="stretch"):
             add_turned_away_entry("Generic - no specific reason")
     
