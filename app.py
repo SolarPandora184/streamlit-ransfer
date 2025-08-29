@@ -24,7 +24,7 @@ def main():
         layout="wide"
     )
     
-    st.title("✈️ Airshow Point of Sale System")
+    st.title(" Airshow Point of Sale System")
     
     # Sidebar navigation - simplified
     st.sidebar.title("Navigation")
