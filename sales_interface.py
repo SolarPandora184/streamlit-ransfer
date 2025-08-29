@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_config import read_data, push_data, update_data
+from local_storage import read_data, push_data, update_data
 from datetime import datetime
 import uuid
 
@@ -203,6 +203,7 @@ def complete_transaction(payment_method, customer_notes, total):
 
 def update_inventory_stock():
     """Update inventory stock after sale"""
+    from local_storage import write_data
     inventory = read_data('inventory')
     
     if not inventory:
@@ -216,7 +217,10 @@ def update_inventory_stock():
             current_stock = inventory[item_id].get('stock', 0)
             new_stock = max(0, current_stock - quantity_sold)
             
-            update_data(f'inventory/{item_id}', {
+            inventory[item_id].update({
                 'stock': new_stock,
                 'updated_at': datetime.now().isoformat()
             })
+    
+    # Write updated inventory back to storage
+    write_data('inventory', inventory)

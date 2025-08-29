@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_config import read_data, write_data, update_data, delete_data
+from local_storage import read_data, write_data, update_data, delete_data
 import uuid
 from datetime import datetime
 
@@ -55,7 +55,11 @@ def add_new_item():
                     'active': True
                 }
                 
-                if write_data(f'inventory/{item_id}', item_data):
+                # Read existing inventory
+                inventory = read_data('inventory')
+                inventory[item_id] = item_data
+                
+                if write_data('inventory', inventory):
                     st.success(f"✅ Item '{item_name}' added successfully!")
                     st.rerun()
                 else:
@@ -123,18 +127,25 @@ def edit_items():
                     'updated_at': datetime.now().isoformat()
                 }
                 
-                if update_data(f'inventory/{selected_item}', updated_data):
-                    st.success("✅ Item updated successfully!")
-                    st.rerun()
-                else:
-                    st.error("❌ Failed to update item")
+                # Update inventory item
+                inventory = read_data('inventory')
+                if selected_item in inventory:
+                    inventory[selected_item].update(updated_data)
+                    if write_data('inventory', inventory):
+                        st.success("✅ Item updated successfully!")
+                        st.rerun()
+                    else:
+                        st.error("❌ Failed to update item")
             
             if deactivate_submitted:
-                if update_data(f'inventory/{selected_item}', {'active': False, 'updated_at': datetime.now().isoformat()}):
-                    st.success("✅ Item deactivated successfully!")
-                    st.rerun()
-                else:
-                    st.error("❌ Failed to deactivate item")
+                inventory = read_data('inventory')
+                if selected_item in inventory:
+                    inventory[selected_item].update({'active': False, 'updated_at': datetime.now().isoformat()})
+                    if write_data('inventory', inventory):
+                        st.success("✅ Item deactivated successfully!")
+                        st.rerun()
+                    else:
+                        st.error("❌ Failed to deactivate item")
 
 def view_inventory():
     """View all inventory items"""

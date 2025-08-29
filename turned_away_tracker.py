@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_config import push_data, read_data
+from local_storage import push_data, read_data
 from datetime import datetime
 import uuid
 

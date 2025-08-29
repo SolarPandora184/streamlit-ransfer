@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_config import read_data
+from local_storage import read_data
 import pandas as pd
 from datetime import datetime, timedelta
 import io

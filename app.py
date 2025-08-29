@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from firebase_config import initialize_firebase, read_data, push_data, update_data
+from local_storage import initialize_local_storage, read_data, push_data, update_data, write_data
 from inventory_manager import inventory_management_page
 from sales_interface import sales_interface_page
 from turned_away_tracker import turned_away_tracker_page, add_turned_away_entry
@@ -8,12 +8,12 @@ from export_manager import export_data_page, generate_export
 from datetime import datetime, timedelta
 import uuid
 
-# Initialize Firebase
+# Initialize Local Storage
 try:
-    initialize_firebase()
-    st.success("Connected to Firebase successfully!")
+    initialize_local_storage()
+    st.success("Local storage initialized successfully!")
 except Exception as e:
-    st.error(f"Failed to connect to Firebase: {str(e)}")
+    st.error(f"Failed to initialize local storage: {str(e)}")
     st.stop()
 
 def main():
@@ -257,10 +257,13 @@ def update_inventory_stock():
             current_stock = inventory[item_id].get('stock', 0)
             new_stock = max(0, current_stock - quantity_sold)
             
-            update_data(f'inventory/{item_id}', {
+            inventory[item_id].update({
                 'stock': new_stock,
                 'updated_at': datetime.now().isoformat()
             })
+    
+    # Write updated inventory back to storage
+    write_data('inventory', inventory)
 
 if __name__ == "__main__":
     main()
